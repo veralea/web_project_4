@@ -1,0 +1,18 @@
+.card__like-button {
+  background-color: white;
+  background-image: url(../../../images/like.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  font-size: 1.875vw;
+  line-height: 1.21;
+  font-weight: 900;
+  width: 1.7vw;
+  max-width: 21px;
+  height: 1.5vw;
+  max-height: 17px;
+}
+
+.card__like-button:active {
+  background-image: url(../../../images/like-active.svg);
+}
