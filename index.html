@@ -11,27 +11,23 @@
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Around the U.S. logo">
     </header>
-    <main>
-      <section class="lead">
-        <div class="profile">
-          <img class="profile__avatar" src="./images/avatar.jpg" alt="photo of author">
-          <div>
-            <div class="profile__title">
-              <h1 class="profile__name">
-                Jacques Cousteau
-              </h1>
-              <button class="button profile__edit-button">
-                <img class="profile__edit-icon" src="./images/edit.svg" alt="pencil">
-              </button>
-            </div>
-            <p class="profile__about-me">Explorer</p>
-          </div>
+    <main class="main">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/avatar.jpg" alt="photo of author">
+        <div class="profile__title">
+          <h1 class="profile__name">
+            Jacques Cousteau
+          </h1>
+          <button class="button profile__edit-button">
+            <img src="./images/edit.svg" alt="pencil">
+          </button>
         </div>
+        <p class="profile__job">Explorer</p>
         <button class="button profile__add-button">
           <img src="./images/add.svg" alt="plus">
         </button>
       </section>
-      <section>
+      <!-- <section>
         <ul class="cards-grid">
           <li class="card">
             <img class="card__picture" src="./images/pic-1.jpg" alt="Yosemite Valley">
@@ -76,18 +72,18 @@
             </div>
           </li>
         </ul>
-      </section>
-      <section class="popup">
+      </section> -->
+      <!-- <section class="popup">
         <button class="button popup__close-button" ></button>
         <form class="popup__container">
           <h2 class="popup__title">Edit profile</h2>
-          <input type="text" class="popup__input-text popup__input-text_type_name" name="name" value="Jacques Cousteau">
-          <input type="text" class="popup__input-text popup__input-text_type_about-me" name="about-me" value="Explorer">
+          <input type="text" class="popup__input-text" name="name" value="Jacques Cousteau">
+          <input type="text" class="popup__input-text" name="job" value="Explorer">
           <button type="submit" class="button popup__submit-button">
             Save
           </button>
         </form>
-      </section>
+      </section> -->
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Around The U.S.</p>

@@ -1,11 +1,12 @@
 .profile__add-button {
-  width: 11.72vw;
-  max-width: 150px;
-  height: 3.90vw;
-  max-height: 50px;
+  width: 100%;
+  height: max-content;
+  padding-top: 5px;
   background-color: #000000;
   border: 2px solid #FFFFFF;
   box-sizing: border-box;
   border-radius: 2px;
   color: inherit;
+  grid-area: add-button;
+  margin: auto 0;
 }

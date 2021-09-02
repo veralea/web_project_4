@@ -15,14 +15,14 @@ let formElement = page.querySelector('.popup__container');
 function handleFormSubmit(evt) {
   evt.preventDefault();
 
-  let nameInput = page.querySelector('.popup__input-text_type_name');
-  let jobInput = page.querySelector('.popup__input-text_type_about-me')
+  let nameInput = page.querySelector('input[name="name"]');
+  let jobInput = page.querySelector('input[name="job"]')
 
   let name = nameInput.value;
   let job = jobInput.value;
 
   document.querySelector('.profile__name').textContent = name;
-  document.querySelector('.profile__about-me').textContent = job;
+  document.querySelector('.profile__job').textContent = job;
 }
 
 formElement.addEventListener('submit', handleFormSubmit);

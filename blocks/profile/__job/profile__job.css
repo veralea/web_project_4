@@ -1,13 +1,13 @@
-.footer__copyright {
+.profile__job {
   font-size: 18px;
   line-height: 1.21;
   font-weight: 400;
-  color: #545454;
+  grid-area: job;
 }
 
 @media screen and (max-width: 768px) {
-  .footer__copyright {
-    margin-left: 27px;
+  .profile__job {
     font-size: 14px;
+    text-align: center;
   }
 }

@@ -1,7 +1,7 @@
 .page {
+  box-sizing: border-box;
   max-width: 1280px;
-  min-width: 320px;
-  width: 68.75vw;;
+  width: 68.75%;
   margin: 0 auto;
   display:flex;
   flex-direction: column;
@@ -10,4 +10,11 @@
   -webkit-font-smoothing: antialiased;
   color: #FFFFFF;
   position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .page {
+    width: 100%;
+    min-width: 320px;
+  }
 }
