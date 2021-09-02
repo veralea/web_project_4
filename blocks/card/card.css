@@ -5,3 +5,10 @@
   max-width: 282px;
   width: calc((68.75vw - 34px)/3);
 }
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 282px;
+    margin: 0 auto;
+  }
+}

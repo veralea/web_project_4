@@ -5,4 +5,13 @@
   padding: 18px auto;
   border: none;
   height: 50.15px;
+  font-size: 18px;
+  line-height: 1.21;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__submit-button {
+    font-size: 14px;
+  }
 }
