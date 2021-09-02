@@ -1,16 +1,14 @@
 # Project 4: Around The U.S.
 
-### Overview
+This is a project in which you can publish photographs of the United States and captions to them. You can also edit the author's name and information about him.
 
-* Figma
-* Images
+Functionality of this project:
+1. Using Figma as a layout specification
+2. Development of relative design for different devices
+3. Bem-metodology for names of classes
+4. Tegs according with HTML5
+5. Functionality of CSS3 (calc() function)
+6. Interactivity on pure JavaScript
 
-**Figma**
-
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
-
-**Images**
-
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!
+Link to Git Page of this project:
+[https://veralea.github.io/web_project_4/](https://veralea.github.io/web_project_4/)
