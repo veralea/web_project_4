@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 87.23%;
-  height:20%;
-  margin:auto;
+  width: 90%;
+  min-height: 20%;
+  margin: auto;
 }
