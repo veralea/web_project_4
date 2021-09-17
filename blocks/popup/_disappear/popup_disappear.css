@@ -1,0 +1,8 @@
+.popup_disappear {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.popup_disappear:hover {
+  opacity: 0;
+}

@@ -6,14 +6,13 @@
   border: none;
   width: 40px;
   height: 40px;
-  z-index: 5;
-  align-self: flex-end;
-  margin-right: calc((100vw - 430px)/2 - 40px);
+  align-self: end;
+  justify-self: end;
 }
 
 @media screen and (max-width: 768px) {
   .popup__close-button {
     width: 26px;
-    margin-right: calc((100vw - 282px)/2);
+    height: 26px;
   }
 }
