@@ -34,5 +34,4 @@
 @import url(../blocks/profile/__title/profile__title.css);
 
 @import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/popup/_disappear/popup_disappear.css);
 @import url(../blocks/card/__like-button/_state/card__like-button_state_active.css);
