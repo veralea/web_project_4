@@ -42,19 +42,15 @@ function openImg (name, link) {
   const popupContainer = popupImg.querySelector('.popup__container');
   let oldImage = popupImg.querySelector('img');
   if (oldImage) {
-    oldImage.nextSibling.remove();
-    oldImage.remove();
-    oldImage = null;
+    oldImage.nextSibling.textContent = '';
+    oldImage.src = '';
   }
   openPopup(popupImg);
-  let image = document.createElement("img");
-  image.setAttribute('class','popup__image');
+  const image = popupImg.querySelector('img');
   image.setAttribute('src',link);
   image.setAttribute('alt',name);
-  let caption = document.createElement('p');
-  caption.setAttribute('class','popup__caption');
+  const caption = popupImg.querySelector('p');
   caption.textContent = name;
-  popupContainer.append(image,caption);
 }
 
 function createCard(cardData) {
@@ -65,11 +61,15 @@ function createCard(cardData) {
   picture.setAttribute('src', cardData.link);
   picture.setAttribute('alt', cardData.name);
   card.querySelector(".card__title").textContent = cardData.name;
-  card.querySelector(".card__like-button").addEventListener("click", function (evt) {
-    evt.target.classList.toggle('card__like-button_state_active');
-  });
-  card.querySelector('.card__delete-button').addEventListener('click', (e)=>deleteCard(e.target));
-  picture.addEventListener('click',(e)=>openImg(cardData.name,cardData.link));
+  card
+    .querySelector(".card__like-button")
+    .addEventListener("click", function (evt) {
+      evt.target.classList.toggle("card__like-button_state_active");
+    });
+  card
+    .querySelector(".card__delete-button")
+    .addEventListener("click", (e) => deleteCard(e.target));
+  picture.addEventListener("click", (e) => openImg(cardData.name, cardData.link));
   return card;
 }
 
@@ -90,8 +90,8 @@ function openPopup(popup){
 function handleEditProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  let name = editForm.elements['name'].value;
-  let job = editForm.elements['job'].value;
+  const name = editForm.elements['name'].value;
+  const job = editForm.elements['job'].value;
 
   document.querySelector('.profile__name').textContent = name;
   document.querySelector('.profile__job').textContent = job;
@@ -102,7 +102,7 @@ function handleEditProfileFormSubmit(evt) {
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
 
-  let cardData = {
+  const cardData = {
     name: addForm.elements['title'].value,
     link: addForm.elements['link'].value
   }
@@ -115,14 +115,14 @@ function handleAddCardFormSubmit(evt) {
 
 function closePopup(evt,popup) {
   evt.preventDefault();
-    popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
 }
 
 
 editForm.addEventListener('submit', handleEditProfileFormSubmit);
 addForm.addEventListener('submit', handleAddCardFormSubmit);
-editButton.addEventListener('click', (e)=>openPopup(page.querySelector('.popup_type_edit')));
-addButton.addEventListener('click', (e)=>openPopup(page.querySelector('.popup_type_add')));
+editButton.addEventListener('click', (e) => openPopup(page.querySelector('.popup_type_edit')));
+addButton.addEventListener('click', (e) => openPopup(page.querySelector('.popup_type_add')));
 Array.from(closeButtons).forEach((closeButton) => {
   closeButton.addEventListener("click", (e) =>
     closePopup(e, e.target.closest(".popup"))
