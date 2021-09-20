@@ -33,14 +33,15 @@ const initialCards = [
 ];
 
 function deleteCard(evt) {
-  evt.closest('.card').remove();
-  evt.closest('.card') = null;
+  let card = evt.closest('.card');
+  card.remove();
+  card = null;
 }
 
 function openImg (name, link) {
   const popupImg = page.querySelector('.popup_type_img');
   const popupContainer = popupImg.querySelector('.popup__container');
-  let oldImage = popupImg.querySelector('img');
+  const oldImage = popupImg.querySelector('img');
   if (oldImage) {
     oldImage.nextSibling.textContent = '';
     oldImage.src = '';
