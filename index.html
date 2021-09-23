@@ -36,9 +36,14 @@
           <button class="button popup__close-button" aria-label="close button"></button>
           <form class="popup__form popup__form_type_edit">
             <h2 class="popup__title">Edit profile</h2>
-            <input type="text" class="popup__input-text" name="name" value="Jacques Cousteau" required>
-            <input type="text" class="popup__input-text" name="job" value="Explorer" required>
-            <button type="submit" class="button popup__submit-button popup__submit-button_type_edit">
+            <input type="text" class="popup__input"
+              name="name" value="Jacques Cousteau" minlength="2" maxlength="40" required>
+            <span class="popup__error">ggg</span>
+            <input type="text" class="popup__input"
+              name="job" value="Explorer" minlength="2" maxlength="200" required>
+            <span class="popup__error">ggg</span>
+            <button type="submit" name="submit"
+            class="button popup__button popup__button_disabled" disabled>
               Save
             </button>
           </form>
@@ -49,9 +54,13 @@
           <button class="button popup__close-button" aria-label="close button"></button>
           <form class="popup__form popup__form_type_add">
             <h2 class="popup__title">New place</h2>
-            <input type="text" class="popup__input-text" name="title" value="" placeholder="Title" required>
-            <input type="text" class="popup__input-text" name="link" value="" placeholder="Image link" required>
-            <button type="submit" class="button popup__submit-button popup__submit-button_type_add">
+            <input type="text" class="popup__input" name="title" value=""
+              placeholder="Title" minlength="1" maxlength="30" required>
+            <span class="popup__error">GGG</span>
+            <input type="url" class="popup__input" name="link" value="" placeholder="Image link" required>
+            <span class="popup__error">ggg</span>
+            <button type="submit" name="submit"
+              class="button popup__button popup__button_disabled" disabled>
               Create
             </button>
           </form>
@@ -80,5 +89,6 @@
     </li>
   </template>
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

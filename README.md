@@ -9,6 +9,9 @@ Functionality of this project:
 4. Tegs according with HTML5
 5. Functionality of CSS3 (calc() function)
 6. Interactivity on pure JavaScript
+7. Smooth appear/disappear of popup element using css properties (opacity, visibility, pointer-events,transition: all)
+8. Form validation by HTML5 (input attributes type, required, maxlength, minlength)  and JS (Constraint Validation API)
+9. Work with DOM elements, access to form elements using .elements
 
 Link to Git Page of this project:
 [https://veralea.github.io/web_project_4/](https://veralea.github.io/web_project_4/)

@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 5px;
+  z-index: 6;
 }
 
 @media screen and (max-width: 768px) {
