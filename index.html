@@ -15,9 +15,9 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.jpg" alt="photo of author">
         <div class="profile__title">
-          <h1 class="profile__name">
+          <span class="profile__name">
             Jacques Cousteau
-          </h1>
+          </span>
           <button class="button profile__edit-button" aria-label="edit button">
             <img src="./images/edit.svg" alt="pencil">
           </button>
@@ -37,11 +37,11 @@
           <form class="popup__form popup__form_type_edit">
             <h2 class="popup__title">Edit profile</h2>
             <input type="text" class="popup__input"
-              name="name" value="Jacques Cousteau" minlength="2" maxlength="40" required>
-            <span class="popup__error">ggg</span>
+              name="name" value="" minlength="2" maxlength="40" required>
+            <span class="popup__error"></span>
             <input type="text" class="popup__input"
-              name="job" value="Explorer" minlength="2" maxlength="200" required>
-            <span class="popup__error">ggg</span>
+              name="job" value="" minlength="2" maxlength="200" required>
+            <span class="popup__error"></span>
             <button type="submit" name="submit"
             class="button popup__button popup__button_disabled" disabled>
               Save
@@ -56,9 +56,9 @@
             <h2 class="popup__title">New place</h2>
             <input type="text" class="popup__input" name="title" value=""
               placeholder="Title" minlength="1" maxlength="30" required>
-            <span class="popup__error">GGG</span>
+            <span class="popup__error"></span>
             <input type="url" class="popup__input" name="link" value="" placeholder="Image link" required>
-            <span class="popup__error">ggg</span>
+            <span class="popup__error"></span>
             <button type="submit" name="submit"
               class="button popup__button popup__button_disabled" disabled>
               Create

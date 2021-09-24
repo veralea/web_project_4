@@ -1,19 +1,10 @@
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
-}
-
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-const toggleButtonState = (inputList,buttonElement) => {
+const toggleButtonState = (inputList,buttonElement,settings) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(settings.inactiveButtonClass);
     buttonElement.setAttribute("disabled", true);
@@ -23,70 +14,77 @@ const toggleButtonState = (inputList,buttonElement) => {
   }
 }
 
-const showInputError = (inputElement, errorMessage) => {
+const showInputError = (inputElement, errorMessage,settings) => {
   const errorElement = inputElement.nextElementSibling;
   inputElement.classList.add(settings.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(settings.errorClass);
 };
 
-const hideInputError = (inputElement) => {
+const hideInputError = (inputElement,settings) => {
   const errorElement = inputElement.nextElementSibling;
   inputElement.classList.remove(settings.inputErrorClass);
   errorElement.classList.remove(settings.errorClass);
   errorElement.textContent = "";
 };
 
-const checkInputValidity = (inputElement) => {
+const checkInputValidity = (inputElement,settings) => {
   if (!inputElement.validity.valid) {
-    showInputError(inputElement, inputElement.validationMessage);
+    showInputError(inputElement, inputElement.validationMessage,settings);
   } else {
-    hideInputError(inputElement);
+    hideInputError(inputElement,settings);
   }
 };
 
-function getInputList(formElement) {
+function getInputList(formElement, settings) {
   return Array.from(formElement.querySelectorAll(settings.inputSelector));
 }
 
-function getSubmitButton(formElement) {
+function getSubmitButton(formElement, settings) {
   return formElement.querySelector(settings.submitButtonSelector);
 }
 
-const setEventListeners = (formElement) => {
-  const inputList = getInputList(formElement);
-  const buttonElement = getSubmitButton(formElement);
-  toggleButtonState(inputList,buttonElement);
+const setEventListeners = (formElement, settings) => {
+  const inputList = getInputList(formElement, settings);
+  const buttonElement = getSubmitButton(formElement, settings);
+  toggleButtonState(inputList,buttonElement,settings);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
-      checkInputValidity(inputElement);
-      toggleButtonState(inputList,buttonElement);
+      checkInputValidity(inputElement,settings);
+      toggleButtonState(inputList,buttonElement,settings);
     });
   });
 }
 
 
 
-const enableValidation = () => {
+const enableValidation = (settings) => {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
-    setEventListeners(formElement);
+    setEventListeners(formElement, settings);
   });
 };
 
-const resetFormValidation = (formElement) => {
+const resetFormValidation = (formElement,settings) => {
   formElement.reset();
 
-  const inputList = getInputList(formElement);
-  const buttonElement = getSubmitButton(formElement);
+  const inputList = getInputList(formElement,settings);
+  const buttonElement = getSubmitButton(formElement,settings);
 
   buttonElement.classList.add(settings.inactiveButtonClass);
   buttonElement.setAttribute("disabled", true);
 
   inputList.forEach((inputElement) => {
-    hideInputError(inputElement);
+    hideInputError(inputElement,settings);
   });
 }
 
-enableValidation();
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+});
 

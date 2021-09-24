@@ -1,10 +1,21 @@
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
 const addButton = page.querySelector('.profile__add-button');
-const closeButtons = page.querySelectorAll('.popup__close-button');
+const profileName = page.querySelector('.profile__name');
+const profileJob = page.querySelector('.profile__job');
 const editForm = page.querySelector('.popup__form_type_edit');
+const editFormName = editForm.elements['name'];
+const editFormJob = editForm.elements['job'];
 const addForm = page.querySelector('.popup__form_type_add');
+const addFormTitle = addForm.elements['title'];
+const addFormLink = addForm.elements['link'];
 const cardsGrid = page.querySelector('.cards-grid');
+const popupEdit = page.querySelector('.popup_type_edit');
+const popupAdd = page.querySelector('.popup_type_add');
+const popupImg = page.querySelector('.popup_type_img');
+const image = popupImg.querySelector('img');
+const caption = popupImg.querySelector('p');
+const popups = page.querySelectorAll('.popup');
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -32,6 +43,7 @@ const initialCards = [
   }
 ];
 
+
 function deleteCard(evt) {
   let card = evt.closest('.card');
   card.remove();
@@ -39,17 +51,13 @@ function deleteCard(evt) {
 }
 
 function openImg (name, link) {
-  const popupImg = page.querySelector('.popup_type_img');
-  const oldImage = popupImg.querySelector('img');
-  if (oldImage) {
-    oldImage.nextSibling.textContent = '';
-    oldImage.src = '';
+  if (image) {
+    caption.textContent = '';
+    image.src = '';
   }
   openPopup(popupImg);
-  const image = popupImg.querySelector('img');
   image.setAttribute('src',link);
   image.setAttribute('alt',name);
-  const caption = popupImg.querySelector('p');
   caption.textContent = name;
 }
 
@@ -82,51 +90,44 @@ initialCards.forEach((initialCard) => {
     renderCard(createCard(initialCard));
 });
 
-function closePopup(evt,popup) {
-  evt.preventDefault();
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  if (popup.children[0].children[1].tagName == "FORM"){
-    resetFormValidation(popup.children[0].children[1]);
+  document.removeEventListener('keydown', closeByEscape);
+}
+
+
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup);
   }
 }
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  popup.addEventListener('click',(evt) => {
-    if(evt.target === popup){
-      closePopup(evt,popup);
-    }
-  });
-  document.addEventListener("keydown",function(evt) {
-    if(evt.key === "Escape"){
-      closePopup(evt,popup);
-    }
-  });
+  document.addEventListener('keydown', closeByEscape);
 }
 
 function handleEditProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  const name = editForm.elements['name'].value;
-  const job = editForm.elements['job'].value;
+  profileName.textContent = editFormName.value;
+  profileJob.textContent = editFormJob.value;
 
-  document.querySelector('.profile__name').textContent = name;
-  document.querySelector('.profile__job').textContent = job;
-
-  closePopup(evt,evt.target.closest('.popup'));
+  closePopup(evt.target.closest('.popup'));
 }
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
 
   const cardData = {
-    name: addForm.elements['title'].value,
-    link: addForm.elements['link'].value
+    name: addFormTitle.value,
+    link: addFormLink.value
   }
 
   addForm.reset();
 
-  closePopup(evt,addForm.closest('.popup'));
+  closePopup(addForm.closest('.popup'));
   renderCard(createCard(cardData));
 }
 
@@ -135,11 +136,39 @@ function handleAddCardFormSubmit(evt) {
 
 editForm.addEventListener('submit', handleEditProfileFormSubmit);
 addForm.addEventListener('submit', handleAddCardFormSubmit);
-editButton.addEventListener('click', (e) => openPopup(page.querySelector('.popup_type_edit')));
-addButton.addEventListener('click', (e) => openPopup(page.querySelector('.popup_type_add')));
-Array.from(closeButtons).forEach((closeButton) => {
-  closeButton.addEventListener("click", (e) =>
-    closePopup(e, e.target.closest(".popup"))
-  );
+editButton.addEventListener('click', (e) => {
+  resetFormValidation(editForm,{
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible"
+  });
+  editFormName.value = profileName.textContent.trim();
+  editFormJob.value = profileJob.textContent.trim();
+  openPopup(popupEdit);
 });
+
+addButton.addEventListener('click', (e) => {
+  resetFormValidation(addForm,{
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible"
+  });
+  openPopup(popupAdd);
+});
+
+Array.from(popups).forEach((popup) => {
+  popup.addEventListener('click',(evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
+      closePopup(popup)
+    }
+  });
+});
+
+
 
