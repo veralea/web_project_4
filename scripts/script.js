@@ -16,6 +16,14 @@ const popupImg = page.querySelector('.popup_type_img');
 const image = popupImg.querySelector('img');
 const caption = popupImg.querySelector('p');
 const popups = page.querySelectorAll('.popup');
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+};
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -137,28 +145,14 @@ function handleAddCardFormSubmit(evt) {
 editForm.addEventListener('submit', handleEditProfileFormSubmit);
 addForm.addEventListener('submit', handleAddCardFormSubmit);
 editButton.addEventListener('click', (e) => {
-  resetFormValidation(editForm,{
-    formSelector: ".popup__form",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__button",
-    inactiveButtonClass: "popup__button_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__error_visible"
-  });
+  resetFormValidation(editForm,settings);
   editFormName.value = profileName.textContent.trim();
   editFormJob.value = profileJob.textContent.trim();
   openPopup(popupEdit);
 });
 
 addButton.addEventListener('click', (e) => {
-  resetFormValidation(addForm,{
-    formSelector: ".popup__form",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__button",
-    inactiveButtonClass: "popup__button_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__error_visible"
-  });
+  resetFormValidation(addForm,settings);
   openPopup(popupAdd);
 });
 
