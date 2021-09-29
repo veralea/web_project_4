@@ -12,6 +12,8 @@ Functionality of this project:
 7. Smooth appear/disappear of popup element using css properties (opacity, visibility, pointer-events,transition: all)
 8. Form validation by HTML5 (input attributes type, required, maxlength, minlength)  and JS (Constraint Validation API)
 9. Work with DOM elements, access to form elements using .elements
+10. OOP (classes on pure JavaScript)
+11. Modules: import and export of classes
 
 Link to Git Page of this project:
 [https://veralea.github.io/web_project_4/](https://veralea.github.io/web_project_4/)
