@@ -1,5 +1,5 @@
 export default class FormValidator {
-  constructor (form, settings){
+  constructor(form, settings) {
     this._formElement = form;
     this._settings = settings;
   }
@@ -11,7 +11,7 @@ export default class FormValidator {
     this._buttonElement.setAttribute("disabled", true);
 
     this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement,inputElement.nextElementSibling);
+      this._hideInputError(inputElement);
     });
   }
 
@@ -24,9 +24,7 @@ export default class FormValidator {
   }
 
   _hasInvalidInput() {
-    return this._inputList.some((inputElement) => {
-      return !inputElement.validity.valid;
-    });
+    return this._inputList.some((inputElement) => !inputElement.validity.valid);
   }
 
   _toggleButtonState() {
@@ -39,23 +37,23 @@ export default class FormValidator {
     }
   }
 
-  _showInputError(input,error) {
+  _showInputError(input) {
     input.classList.add(this._settings.inputErrorClass);
-    error.textContent = input.validationMessage;
-    error.classList.add(this._settings.errorClass);
+    input.nextElementSibling.textContent = input.validationMessage;
+    input.nextElementSibling.classList.add(this._settings.errorClass);
   }
 
-  _hideInputError(input,error) {
+  _hideInputError(input) {
     input.classList.remove(this._settings.inputErrorClass);
-    error.classList.remove(this._settings.errorClass);
-    error.textContent = "";
+    input.nextElementSibling.classList.remove(this._settings.errorClass);
+    input.nextElementSibling.textContent = "";
   }
 
-  _checkInputValidity(input,error) {
+  _checkInputValidity(input) {
     if (!input.validity.valid) {
-      this._showInputError(input,error);
+      this._showInputError(input);
     } else {
-      this._hideInputError(input,error);
+      this._hideInputError(input);
     }
   }
 
@@ -63,8 +61,7 @@ export default class FormValidator {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input",() => {
-        const errorElement = inputElement.nextElementSibling;
-        this._checkInputValidity(inputElement,errorElement);
+        this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });
     });

@@ -1,17 +1,17 @@
-import {openPopup} from "./index.js"
+import { openPopup } from "./utils.js"
 
 const popupImg = document.querySelector('.popup_type_img');
 const image = popupImg.querySelector('img');
 const caption = popupImg.querySelector('p');
 
 class Card {
-  constructor(data, templateSelector){
+  constructor(data, templateSelector) {
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
   }
 
-  _getTemplate(){
+  _getTemplate() {
     const card = document
     .querySelector(this._templateSelector)
     .content
@@ -21,7 +21,7 @@ class Card {
     return card;
   }
 
-  _setEventListeners(){
+  _setEventListeners(picture) {
     this._element
       .querySelector(".card__like-button")
       .addEventListener("click", function (evt) {
@@ -29,37 +29,35 @@ class Card {
       });
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", (e) => this._deleteCard(e.target));
-    this._picture.addEventListener("click", (e) => this._openImg());
+      .addEventListener("click", this._deleteCard);
+    picture.addEventListener("click", (e) => this._openImg());
   }
 
   createCard() {
     this._element = this._getTemplate();
-    this._picture = this._element.querySelector('.card__picture');
+    const picture = this._element.querySelector('.card__picture');
 
-    this._picture.setAttribute('src', this._link);
-    this._picture.setAttribute('alt', this._name);
+    picture.setAttribute('src', this._link);
+    picture.setAttribute('alt', this._name);
 
     this._element.querySelector(".card__title").textContent = this._name;
 
-    this._setEventListeners();
+    this._setEventListeners(picture);
 
     return this._element;
   }
 
-  _deleteCard(evt) {
+  _deleteCard = () => {
     this._element.remove();
     this._element = null;
   }
 
-  _openImg () {
-    if (image) {
-      caption.textContent = '';
-      image.src = '';
-    }
+  _openImg() {
+    caption.textContent = '';
+    image.src = '';
     openPopup(popupImg);
-    image.setAttribute('src',this._link);
-    image.setAttribute('alt',this._name);
+    image.setAttribute('src', this._link);
+    image.setAttribute('alt', this._name);
     caption.textContent = this._name;
   }
 };
