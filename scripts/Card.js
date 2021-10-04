@@ -1,8 +1,4 @@
-import Popup from "./Popup.js"
-
-const popupImg = document.querySelector('.popup_type_img');
-const image = popupImg.querySelector('img');
-const caption = popupImg.querySelector('p');
+import PopupWithImage from "./PopupWithImage.js";
 
 class Card {
   constructor(data, templateSelector) {
@@ -30,7 +26,7 @@ class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", this._deleteCard);
-    picture.addEventListener("click", (e) => this._openImg());
+    picture.addEventListener("click", (e) => new PopupWithImage({ link: this._link, name: this._name },'popup_type_img').open());
   }
 
   createCard() {
@@ -52,13 +48,5 @@ class Card {
     this._element = null;
   }
 
-  _openImg() {
-    caption.textContent = '';
-    image.src = '';
-    new Popup('popup_type_img').open();
-    image.setAttribute('src', this._link);
-    image.setAttribute('alt', this._name);
-    caption.textContent = this._name;
-  }
 };
 export default Card;
