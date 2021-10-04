@@ -2,12 +2,16 @@ import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import Popup from "./Popup.js";
 import Section from "./Section.js";
+import { settings, initialCards } from "./constants.js";
+import UserInfo from "./UserInfo.js";
+
 
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
 const addButton = page.querySelector('.profile__add-button');
-const profileName = page.querySelector('.profile__name');
-const profileJob = page.querySelector('.profile__job');
+const nameSelector = "profile__name";
+const jobSelector = "profile__job";
+const profileInfo = new UserInfo(nameSelector, jobSelector);
 const editForm = page.querySelector('.popup__form_type_edit');
 const editFormName = editForm.elements['name'];
 const editFormJob = editForm.elements['job'];
@@ -17,40 +21,8 @@ const addFormLink = addForm.elements['link'];
 const popupEdit = new Popup('popup_type_edit');
 const popupAdd = new Popup('popup_type_add');
 const cardTemplate = "#card-template";
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
-};
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
+
+profileInfo.setUserInfo({name:"Jacques Cousteau", job:"Explorer"});
 
 new FormValidator(addForm,settings).enableValidation();
 new FormValidator(editForm,settings).enableValidation();
@@ -70,8 +42,7 @@ defaultCardList.renderItems();
 function handleEditProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  profileName.textContent = editFormName.value;
-  profileJob.textContent = editFormJob.value;
+  profileInfo.setUserInfo({name: editFormName.value, job: editFormJob.value})
 
   popupEdit.close();
 }
@@ -95,8 +66,9 @@ editForm.addEventListener('submit', handleEditProfileFormSubmit);
 addForm.addEventListener('submit', handleAddCardFormSubmit);
 
 editButton.addEventListener('click', () => {
-  editFormName.value = profileName.textContent.trim();
-  editFormJob.value = profileJob.textContent.trim();
+  const userData = profileInfo.getUserInfo();
+  editFormName.value = userData.name;
+  editFormJob.value = userData.job;
   popupEdit.open();
 });
 
