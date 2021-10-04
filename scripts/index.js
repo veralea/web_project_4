@@ -1,6 +1,7 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import { openPopup, closePopup } from "./utils.js";
+import Section from "./Section.js";
 
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
@@ -13,7 +14,6 @@ const editFormJob = editForm.elements['job'];
 const addForm = page.querySelector('.popup__form_type_add');
 const addFormTitle = addForm.elements['title'];
 const addFormLink = addForm.elements['link'];
-const cardsGrid = page.querySelector('.cards-grid');
 const popupEdit = page.querySelector('.popup_type_edit');
 const popupAdd = page.querySelector('.popup_type_add');
 const popups = page.querySelectorAll('.popup');
@@ -56,14 +56,20 @@ const initialCards = [
 new FormValidator(addForm,settings).enableValidation();
 new FormValidator(editForm,settings).enableValidation();
 
-function renderCard(card) {
-  cardsGrid.prepend(card);
-}
 
 initialCards.reverse();
-initialCards.forEach((initialCard) => {
-    renderCard(new Card (initialCard, "#card-template").createCard());
-});
+
+const defaultCardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = new Card (item, cardTemplate).createCard();
+      defaultCardList.addItem(cardElement);
+    }
+  },
+  '.cards-grid');
+
+defaultCardList.renderItems();
 
 function handleEditProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -85,7 +91,9 @@ function handleAddCardFormSubmit(evt) {
   addForm.reset();
 
   closePopup(addForm.closest('.popup'));
-  renderCard(new Card (cardData, cardTemplate).createCard());
+  // renderCard(new Card (cardData, cardTemplate).createCard());
+  const cardElement = new Card (cardData, cardTemplate).createCard();
+  defaultCardList.addItem(cardElement);
 }
 
 
