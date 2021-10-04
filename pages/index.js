@@ -1,9 +1,9 @@
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
-import Popup from "./Popup.js";
-import Section from "./Section.js";
-import { settings, initialCards } from "./constants.js";
-import UserInfo from "./UserInfo.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import Popup from "../components/Popup.js";
+import Section from "../components/Section.js";
+import { settings, initialCards } from "../utils/constants.js";
+import UserInfo from "../components/UserInfo.js";
 
 
 const page = document.querySelector('.page');

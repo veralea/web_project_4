@@ -26,7 +26,11 @@ class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", this._deleteCard);
-    picture.addEventListener("click", (e) => new PopupWithImage({ link: this._link, name: this._name },'popup_type_img').open());
+    picture.addEventListener("click", (e) => this.handleCardClick());
+  }
+
+  handleCardClick() {
+    new PopupWithImage({ link: this._link, name: this._name },'popup_type_img').open();
   }
 
   createCard() {
