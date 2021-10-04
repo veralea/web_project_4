@@ -1,4 +1,4 @@
-import { openPopup } from "./utils.js"
+import Popup from "./Popup.js"
 
 const popupImg = document.querySelector('.popup_type_img');
 const image = popupImg.querySelector('img');
@@ -55,7 +55,7 @@ class Card {
   _openImg() {
     caption.textContent = '';
     image.src = '';
-    openPopup(popupImg);
+    new Popup('popup_type_img').open();
     image.setAttribute('src', this._link);
     image.setAttribute('alt', this._name);
     caption.textContent = this._name;

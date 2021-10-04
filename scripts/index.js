@@ -1,6 +1,6 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
-import { openPopup, closePopup } from "./utils.js";
+import Popup from "./Popup.js";
 import Section from "./Section.js";
 
 const page = document.querySelector('.page');
@@ -14,9 +14,8 @@ const editFormJob = editForm.elements['job'];
 const addForm = page.querySelector('.popup__form_type_add');
 const addFormTitle = addForm.elements['title'];
 const addFormLink = addForm.elements['link'];
-const popupEdit = page.querySelector('.popup_type_edit');
-const popupAdd = page.querySelector('.popup_type_add');
-const popups = page.querySelectorAll('.popup');
+const popupEdit = new Popup('popup_type_edit');
+const popupAdd = new Popup('popup_type_add');
 const cardTemplate = "#card-template";
 const settings = {
   formSelector: ".popup__form",
@@ -56,12 +55,9 @@ const initialCards = [
 new FormValidator(addForm,settings).enableValidation();
 new FormValidator(editForm,settings).enableValidation();
 
-
-initialCards.reverse();
-
 const defaultCardList = new Section(
   {
-    items: initialCards,
+    items: initialCards.reverse(),
     renderer: (item) => {
       const cardElement = new Card (item, cardTemplate).createCard();
       defaultCardList.addItem(cardElement);
@@ -77,7 +73,7 @@ function handleEditProfileFormSubmit(evt) {
   profileName.textContent = editFormName.value;
   profileJob.textContent = editFormJob.value;
 
-  closePopup(evt.target.closest('.popup'));
+  popupEdit.close();
 }
 
 function handleAddCardFormSubmit(evt) {
@@ -90,34 +86,24 @@ function handleAddCardFormSubmit(evt) {
 
   addForm.reset();
 
-  closePopup(addForm.closest('.popup'));
-  // renderCard(new Card (cardData, cardTemplate).createCard());
+  popupAdd.close();
   const cardElement = new Card (cardData, cardTemplate).createCard();
   defaultCardList.addItem(cardElement);
 }
 
-
-
-
 editForm.addEventListener('submit', handleEditProfileFormSubmit);
 addForm.addEventListener('submit', handleAddCardFormSubmit);
-editButton.addEventListener('click', (e) => {
+
+editButton.addEventListener('click', () => {
   editFormName.value = profileName.textContent.trim();
   editFormJob.value = profileJob.textContent.trim();
-  openPopup(popupEdit);
+  popupEdit.open();
 });
 
-addButton.addEventListener('click', (e) => {
-  openPopup(popupAdd);
+addButton.addEventListener('click', () => {
+  popupAdd.open();
 });
 
-Array.from(popups).forEach((popup) => {
-  popup.addEventListener('click',(evt) => {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      closePopup(popup)
-    }
-  });
-});
 
 
 
