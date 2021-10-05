@@ -30,7 +30,9 @@ class Card {
   }
 
   handleCardClick() {
-    new PopupWithImage({ link: this._link, name: this._name },'popup_type_img').open();
+    const popupWithImage = new PopupWithImage({ link: this._link, name: this._name },'popup_type_img');
+    popupWithImage.open();
+    popupWithImage.setEventListeners();
   }
 
   createCard() {
