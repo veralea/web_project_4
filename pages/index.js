@@ -1,9 +1,9 @@
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import Popup from "../components/Popup.js";
 import Section from "../components/Section.js";
 import { settings, initialCards } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 
 const page = document.querySelector('.page');
@@ -18,14 +18,17 @@ const editFormJob = editForm.elements['job'];
 const addForm = page.querySelector('.popup__form_type_add');
 const addFormTitle = addForm.elements['title'];
 const addFormLink = addForm.elements['link'];
-const popupEdit = new Popup('popup_type_edit');
-const popupAdd = new Popup('popup_type_add');
+const popupEdit = new PopupWithForm(handleEditProfileFormSubmit,'popup_type_edit');
+const popupAdd = new PopupWithForm(handleAddCardFormSubmit,'popup_type_add');
 const cardTemplate = "#card-template";
 
 profileInfo.setUserInfo({name:"Jacques Cousteau", job:"Explorer"});
 
 new FormValidator(addForm,settings).enableValidation();
 new FormValidator(editForm,settings).enableValidation();
+
+popupEdit.check();
+popupAdd.check();
 
 const defaultCardList = new Section(
   {
