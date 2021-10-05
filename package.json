@@ -1,0 +1,23 @@
+{
+  "name": "web_project_4",
+  "version": "1.0.0",
+  "description": "This is a project in which you can publish photographs of the United States and captions to them. You can also edit the author's name and information about him.",
+  "main": "index.js",
+  "dependencies": {
+    "prettier": "^2.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veralea/web_project_4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/veralea/web_project_4/issues"
+  },
+  "homepage": "https://github.com/veralea/web_project_4#readme"
+}

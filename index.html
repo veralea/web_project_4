@@ -15,80 +15,77 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.jpg" alt="photo of author">
         <div class="profile__title">
-          <h1 class="profile__name">
-            Jacques Cousteau
-          </h1>
-          <button class="button profile__edit-button">
+          <span class="profile__name"></span>
+          <button class="button profile__edit-button" aria-label="edit button">
             <img src="./images/edit.svg" alt="pencil">
           </button>
         </div>
-        <p class="profile__job">Explorer</p>
-        <button class="button profile__add-button">
+        <p class="profile__job"></p>
+        <button class="button profile__add-button" aria-label="add button">
           <img src="./images/add.svg" alt="plus">
         </button>
       </section>
       <section>
         <ul class="cards-grid">
-          <li class="card">
-            <img class="card__picture" src="./images/pic-1.jpg" alt="Yosemite Valley">
-            <div class="card__caption">
-              <p class="card__title">Yosemite Valley</p>
-              <button type="button" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__picture" src="./images/pic-2.jpg" alt="Lake Louise">
-            <div class="card__caption">
-              <p class="card__title">Lake Louise</p>
-              <button type="button" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__picture" src="./images/pic-3.jpg" alt="Bald Mountains">
-            <div class="card__caption">
-              <p class="card__title">Bald Mountains</p>
-              <button type="button" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__picture" src="./images/pic-4.jpg" alt="Latemar">
-            <div class="card__caption">
-             <p class="card__title">Latemar</p>
-             <button type="button" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__picture" src="./images/pic-5.jpg" alt="Vanoise National Park">
-            <div class="card__caption">
-             <p class="card__title">Vanoise National Park</p>
-             <button type="button" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__picture" src="./images/pic-6.jpg" alt="Lago di Braies">
-            <div class="card__caption">
-              <p class="card__title">Lago di Braies</p>
-              <button type="button" class="button card__like-button"></button>
-            </div>
-          </li>
         </ul>
       </section>
-      <section class="popup">
-        <button class="button popup__close-button" ></button>
-        <form class="popup__container">
-          <h2 class="popup__title">Edit profile</h2>
-          <input type="text" class="popup__input-text" name="name" value="Jacques Cousteau">
-          <input type="text" class="popup__input-text" name="job" value="Explorer">
-          <button type="submit" class="button popup__submit-button">
-            Save
-          </button>
-        </form>
+      <section class="popup popup_type_edit">
+        <div class="popup__container">
+          <button class="button popup__close-button" aria-label="close button"></button>
+          <form class="popup__form popup__form_type_edit">
+            <h2 class="popup__title">Edit profile</h2>
+            <input type="text" class="popup__input"
+              name="name" value="" minlength="2" maxlength="40" required>
+            <span class="popup__error"></span>
+            <input type="text" class="popup__input"
+              name="job" value="" minlength="2" maxlength="200" required>
+            <span class="popup__error"></span>
+            <button type="submit" name="submit"
+            class="button popup__button popup__button_disabled" disabled>
+              Save
+            </button>
+          </form>
+        </div>
+      </section>
+      <section class="popup popup_type_add">
+        <div class="popup__container">
+          <button class="button popup__close-button" aria-label="close button"></button>
+          <form class="popup__form popup__form_type_add">
+            <h2 class="popup__title">New place</h2>
+            <input type="text" class="popup__input" name="title" value=""
+              placeholder="Title" minlength="1" maxlength="30" required>
+            <span class="popup__error"></span>
+            <input type="url" class="popup__input" name="link" value="" placeholder="Image link" required>
+            <span class="popup__error"></span>
+            <button type="submit" name="submit"
+              class="button popup__button popup__button_disabled" disabled>
+              Create
+            </button>
+          </form>
+        </div>
+      </section>
+      <section class="popup popup_type_img">
+        <div class="popup__container">
+          <button class="button popup__close-button" aria-label="close button"></button>
+          <img class="popup__image" src="#" alt="no image">
+          <p class="popup__caption"></p>
+        </div>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
     </footer>
   </div>
-  <script src="./script.js"></script>
+  <template id="card-template">
+    <li class="card">
+      <button type="button" class="button card__delete-button" aria-label="delete button"></button>
+      <img class="card__picture">
+      <div class="card__caption">
+        <p class="card__title"></p>
+        <button type="button" class="button card__like-button" aria-label="like button"></button>
+      </div>
+    </li>
+  </template>
+  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
