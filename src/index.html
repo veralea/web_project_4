@@ -4,25 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Around The U.S.</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="body">
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Around the U.S. logo">
+      <div class="header__logo"></div>
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="./images/avatar.jpg" alt="photo of author">
+        <div class="profile__avatar"></div>
         <div class="profile__title">
           <span class="profile__name"></span>
           <button class="button profile__edit-button" aria-label="edit button">
-            <img src="./images/edit.svg" alt="pencil">
+            <div class="profile__edit-image"></div>
           </button>
         </div>
         <p class="profile__job"></p>
         <button class="button profile__add-button" aria-label="add button">
-          <img src="./images/add.svg" alt="plus">
+          <div class="profile__add-image"></div>
         </button>
       </section>
       <section>
@@ -52,7 +51,7 @@
           <button class="button popup__close-button" aria-label="close button"></button>
           <form class="popup__form popup__form_type_add">
             <h2 class="popup__title">New place</h2>
-            <input type="text" class="popup__input" name="title" value=""
+            <input type="text" class="popup__input" name="name" value=""
               placeholder="Title" minlength="1" maxlength="30" required>
             <span class="popup__error"></span>
             <input type="url" class="popup__input" name="link" value="" placeholder="Image link" required>
@@ -86,6 +85,5 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+import "./index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import { initialCards } from "../utils/constants.js";
@@ -53,5 +54,5 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener('click', () => {
-  popupAdd.open({title: "", link: ""});
+  popupAdd.open({name: "", link: ""});
 });
