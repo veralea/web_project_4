@@ -11,6 +11,6 @@
   margin: auto 0;
 }
 
-.profile__add-button {
+.profile__add-button:hover {
   cursor: pointer;
 }

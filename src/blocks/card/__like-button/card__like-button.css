@@ -11,7 +11,7 @@
   padding: 0;
 }
 
-.card__like-button {
+.card__like-button:hover {
   cursor: pointer;
 }
 

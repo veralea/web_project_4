@@ -7,6 +7,6 @@
   font-size: 0;
 }
 
-.profile__edit-button {
+.profile__edit-button:hover {
   cursor: pointer;
 }

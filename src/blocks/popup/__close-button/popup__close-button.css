@@ -10,7 +10,7 @@
   justify-self: end;
 }
 
-.popup__close-button {
+.popup__close-button:hover {
   cursor: pointer;
 }
 
