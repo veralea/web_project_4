@@ -25,7 +25,7 @@ class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", this._deleteCard);
-    picture.addEventListener("click", () => this._handleCardClick({link: this._link, name: this._name}));
+    picture.addEventListener("click", (e) => this._handleCardClick(e,{link: this._link, name: this._name}));
   }
 
   createCard() {

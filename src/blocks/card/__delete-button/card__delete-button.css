@@ -11,10 +11,11 @@
   position: absolute;
   top: 18px;
   right: 15px;
+  cursor: pointer;
 }
 
 .card__delete-button:hover {
-  cursor: pointer;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

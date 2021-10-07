@@ -9,10 +9,11 @@
   max-width: 21px;
   height: 1.6vw;
   padding: 0;
+  cursor: pointer;
 }
 
 .card__like-button:hover {
-  cursor: pointer;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {
