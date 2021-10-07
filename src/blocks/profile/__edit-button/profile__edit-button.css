@@ -6,3 +6,7 @@
   border: 1px solid #FFFFFF;
   font-size: 0;
 }
+
+.profile__edit-button {
+  cursor: pointer;
+}

@@ -1,10 +1,9 @@
-import PopupWithImage from "./PopupWithImage.js";
-
 class Card {
-  constructor(data, templateSelector) {
-    this._link = data.link;
-    this._name = data.name;
+  constructor(inputsData, templateSelector, handleCardClick) {
+    this._link = inputsData.link;
+    this._name = inputsData.name;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -26,13 +25,7 @@ class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", this._deleteCard);
-    picture.addEventListener("click", (e) => this.handleCardClick());
-  }
-
-  handleCardClick() {
-    const popupWithImage = new PopupWithImage({ link: this._link, name: this._name },'popup_type_img');
-    popupWithImage.open();
-    popupWithImage.setEventListeners();
+    picture.addEventListener("click", () => this._handleCardClick({link: this._link, name: this._name}));
   }
 
   createCard() {

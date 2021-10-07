@@ -11,6 +11,10 @@
   padding: 0;
 }
 
+.card__like-button {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .card__like-button {
     width: 6vw;

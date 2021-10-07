@@ -10,6 +10,10 @@
   justify-self: end;
 }
 
+.popup__close-button {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .popup__close-button {
     width: 26px;

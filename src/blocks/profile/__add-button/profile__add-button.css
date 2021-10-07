@@ -10,3 +10,7 @@
   grid-area: add-button;
   margin: auto 0;
 }
+
+.profile__add-button {
+  cursor: pointer;
+}

@@ -13,6 +13,10 @@
   right: 15px;
 }
 
+.card__delete-button:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .card__delete-button {
     width: 5.5vw;
