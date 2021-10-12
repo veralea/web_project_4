@@ -1,7 +1,7 @@
 import "./index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import { initialCards, settings, access } from "../utils/constants.js";
+import { settings, access } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage";
@@ -72,21 +72,27 @@ const popupAdd = new PopupWithForm(
   'popup_type_add');
 popupAdd.setEventListeners();
 
-const defaultCardList = new Section(
+const initialCards = api.getInitialCards(
   {
-    items: initialCards.reverse(),
-    renderer: (item) => {
-      const cardElement = new Card (
-          item,
-          cardTemplate,
-          handleCardClick
-        ).createCard();
-      defaultCardList.addItem(cardElement);
-    }
-  },
-  '.cards-grid');
+    renderer: (initialCards) => {
+      const defaultCardList = new Section(
+        {
+          items: initialCards,
+          renderer: (item) => {
+            const cardElement = new Card (
+                item,
+                cardTemplate,
+                handleCardClick
+              ).createCard();
+            defaultCardList.addItem(cardElement);
+          }
+        },
+        '.cards-grid');
 
-defaultCardList.renderItems();
+      defaultCardList.renderItems();
+    }
+  }
+);
 
 editButton.addEventListener('click', () => {
   const userData = profileInfo.getUserInfo();

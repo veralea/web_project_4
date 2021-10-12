@@ -20,6 +20,20 @@ export default class Api {
     .catch((err) => console.log(err));
   }
 
-  getInitialCards() {}
+  getInitialCards({renderer}) {
+    return fetch(`${this._baseUrl}/cards`,{
+      headers: this._headers
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    }).then((result) => {
+      // return result;
+      renderer(result);
+      console.log(result);
+    })
+    .catch((err) => console.log(err));;
+  }
 
 }
