@@ -53,4 +53,26 @@ export default class Api {
     .catch((err) => console.log(err));
   }
 
+  addNewCard({cardData, renderer}) {
+    return fetch(`${this._baseUrl}/cards`,{
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: cardData.name,
+        link: cardData.link
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((result) => {
+      console.log(result);
+      renderer(result);
+    })
+    .catch((err) => console.log(err));
+  }
+
 }
