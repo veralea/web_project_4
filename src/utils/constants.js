@@ -33,3 +33,8 @@ export const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg"
   }
 ];
+
+export const access = {
+  token: "79e7d2e5-160a-498a-95ef-9351a4cf4856",
+  groupId: "group-12"
+};

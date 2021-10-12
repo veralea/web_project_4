@@ -1,21 +1,38 @@
 import "./index.css";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import { initialCards, settings } from "../utils/constants.js";
+import { initialCards, settings, access } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage";
 import FormValidator from "../components/FormValidator";
+import Api from "../components/Api";
 
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
 const addButton = page.querySelector('.profile__add-button');
 const nameSelector = "profile__name";
 const jobSelector = "profile__job";
+const avatarSelector = "profile__avatar";
 const cardTemplate = "#card-template";
 
-const profileInfo = new UserInfo(nameSelector, jobSelector);
-profileInfo.setUserInfo({name:"Jacques Cousteau", job:"Explorer"});
+const api = new Api({
+  baseUrl: `https://around.nomoreparties.co/v1/${access.groupId}`,
+  headers: {
+    authorization: access.token,
+    "Content-Type": "application/json"
+  }
+});
+
+const profileInfo = new UserInfo(nameSelector, jobSelector, avatarSelector);
+
+api.getInitialUserInfo(
+  {
+    renderer: (result) =>
+      profileInfo.setUserInfo({name: result.name, job: result.about, avatar: result.avatar})
+  }
+)
+
 
 const addValidator = new FormValidator(document.querySelector(".popup__form_type_add"),settings);
 addValidator.enableValidation();
@@ -80,3 +97,7 @@ editButton.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
   popupAdd.open({name: "", link: ""});
 });
+
+
+
+

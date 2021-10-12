@@ -4,9 +4,8 @@
   border-radius: 50%;
   margin: 1px auto 1px auto;
   grid-area: avatar;
-  background-image: url("../../../images/avatar.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
 }
 
