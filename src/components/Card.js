@@ -2,6 +2,7 @@ class Card {
   constructor(inputsData, templateSelector, handleCardClick) {
     this._link = inputsData.link;
     this._name = inputsData.name;
+    this._likes = inputsData.likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -29,6 +30,7 @@ class Card {
   }
 
   createCard() {
+    console.log(this._likes)
     this._element = this._getTemplate();
     const picture = this._element.querySelector('.card__picture');
 
@@ -36,6 +38,7 @@ class Card {
     picture.setAttribute('alt', this._name);
 
     this._element.querySelector(".card__title").textContent = this._name;
+    this._element.querySelector(".card__like-counter").textContent = this._likes.length;
 
     this._setEventListeners(picture);
 
