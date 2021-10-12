@@ -16,6 +16,15 @@ const jobSelector = "profile__job";
 const avatarSelector = "profile__avatar";
 const cardTemplate = "#card-template";
 
+let initialCards = [];
+let defaultCardList = () => {};
+
+const addValidator = new FormValidator(document.querySelector(".popup__form_type_add"),settings);
+addValidator.enableValidation();
+const editValidator = new FormValidator(document.querySelector(".popup__form_type_edit"),settings);
+editValidator.enableValidation();
+
+
 const api = new Api({
   baseUrl: `https://around.nomoreparties.co/v1/${access.groupId}`,
   headers: {
@@ -33,11 +42,26 @@ api.getInitialUserInfo(
   }
 )
 
-
-const addValidator = new FormValidator(document.querySelector(".popup__form_type_add"),settings);
-addValidator.enableValidation();
-const editValidator = new FormValidator(document.querySelector(".popup__form_type_edit"),settings);
-editValidator.enableValidation();
+api.getInitialCards()
+.then((result) => {initialCards = result;})
+.then(() => {
+  defaultCardList = new Section(
+    {
+      items: initialCards,
+      renderer: (item) => {
+        const cardElement = new Card (
+            item,
+            cardTemplate,
+            handleCardClick
+          ).createCard();
+        defaultCardList.addItem(cardElement);
+      }
+    },
+    '.cards-grid');
+})
+.then(() => {
+  defaultCardList.renderItems();
+});
 
 function handleCardClick(e, cardData) {
   e.preventDefault();
@@ -50,8 +74,14 @@ function handleCardClick(e, cardData) {
 const popupEdit = new PopupWithForm(
   {
     handleFormSubmit: (inputsData) => {
-      profileInfo.setUserInfo({name: inputsData.name, job: inputsData.job});
-      popupEdit.close();
+      api.updateProfile({
+        userData: inputsData,
+        renderer: (result) => {
+          profileInfo.setUserInfo({name: result.name, job: result.about, avatar: result.avatar});
+          popupEdit.close();
+        }
+      })
+
     }
   },
   'popup_type_edit');
@@ -72,27 +102,8 @@ const popupAdd = new PopupWithForm(
   'popup_type_add');
 popupAdd.setEventListeners();
 
-const initialCards = api.getInitialCards(
-  {
-    renderer: (initialCards) => {
-      const defaultCardList = new Section(
-        {
-          items: initialCards,
-          renderer: (item) => {
-            const cardElement = new Card (
-                item,
-                cardTemplate,
-                handleCardClick
-              ).createCard();
-            defaultCardList.addItem(cardElement);
-          }
-        },
-        '.cards-grid');
 
-      defaultCardList.renderItems();
-    }
-  }
-);
+
 
 editButton.addEventListener('click', () => {
   const userData = profileInfo.getUserInfo();

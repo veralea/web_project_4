@@ -20,7 +20,7 @@ export default class Api {
     .catch((err) => console.log(err));
   }
 
-  getInitialCards({renderer}) {
+  getInitialCards() {
     return fetch(`${this._baseUrl}/cards`,{
       headers: this._headers
     }).then(res => {
@@ -28,12 +28,29 @@ export default class Api {
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
-    }).then((result) => {
-      // return result;
-      renderer(result);
-      console.log(result);
     })
-    .catch((err) => console.log(err));;
+    .catch((err) => console.log(err));
+  }
+
+  updateProfile({ userData, renderer }) {
+    return fetch(`${this._baseUrl}/users/me`,{
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: userData.name,
+        about: userData.job
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((result) => {
+      renderer(result);
+    })
+    .catch((err) => console.log(err));
   }
 
 }
