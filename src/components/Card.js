@@ -1,10 +1,12 @@
 class Card {
-  constructor(inputsData, templateSelector, handleCardClick) {
-    this._link = inputsData.link;
-    this._name = inputsData.name;
-    this._likes = inputsData.likes;
+  constructor(cardData, templateSelector, handleCardClick, handleDeleteClick) {
+    this._cardData = cardData;
+    this._link = cardData.link;
+    this._name = cardData.name;
+    this._likes = cardData.likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _getTemplate() {
@@ -19,6 +21,11 @@ class Card {
 
   _setEventListeners(picture) {
     this._element
+      .querySelector(".card__delete-button")
+      .addEventListener("click", (e) => {
+        this._handleDeleteClick(e);
+      });
+    this._element
       .querySelector(".card__like-button")
       .addEventListener("click", function (evt) {
         evt.target.classList.toggle("card__like-button_state_active");
@@ -26,11 +33,10 @@ class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", this._deleteCard);
-    picture.addEventListener("click", (e) => this._handleCardClick(e,{link: this._link, name: this._name}));
+    picture.addEventListener("click", (e) => this._handleCardClick(e, this._cardData));
   }
 
   createCard() {
-    console.log(this._likes)
     this._element = this._getTemplate();
     const picture = this._element.querySelector('.card__picture');
 

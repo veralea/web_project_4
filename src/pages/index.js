@@ -7,6 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage";
 import FormValidator from "../components/FormValidator";
 import Api from "../components/Api";
+import Popup from "../components/Popup";
 
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
@@ -52,7 +53,8 @@ api.getInitialCards()
         const cardElement = new Card (
             item,
             cardTemplate,
-            handleCardClick
+            handleCardClick,
+            handleDeleteClick
           ).createCard();
         defaultCardList.addItem(cardElement);
       }
@@ -64,10 +66,17 @@ api.getInitialCards()
 });
 
 function handleCardClick(e, cardData) {
+  console.log(cardData);
   e.preventDefault();
   const popupWithImage = new PopupWithImage({ link: cardData.link, name: cardData.name },'popup_type_img');
   popupWithImage.open();
   popupWithImage.setEventListeners();
+}
+
+function handleDeleteClick(e) {
+  const popupDeleteCard = new Popup('popup_type_delete');
+  popupDeleteCard.open();
+  popupDeleteCard.setEventListeners();
 }
 
 
@@ -89,11 +98,12 @@ popupEdit.setEventListeners();
 
 const popupAdd = new PopupWithForm(
   {
-    handleFormSubmit: (inputsData) => {
+    handleFormSubmit: (cardData) => {
       const cardElement = new Card (
-          inputsData,
+          cardData,
           cardTemplate,
-          handleCardClick
+          handleCardClick,
+          handleDeleteClick
         ).createCard();
       defaultCardList.addItem(cardElement);
       popupAdd.close();
@@ -101,8 +111,6 @@ const popupAdd = new PopupWithForm(
   },
   'popup_type_add');
 popupAdd.setEventListeners();
-
-
 
 
 editButton.addEventListener('click', () => {
