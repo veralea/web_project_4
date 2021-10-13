@@ -23,20 +23,17 @@ class Card {
     this._element
       .querySelector(".card__delete-button")
       .addEventListener("click", (e) => {
-        this._handleDeleteClick(e);
+        this._handleDeleteClick(e, this._cardData, this);
       });
     this._element
       .querySelector(".card__like-button")
       .addEventListener("click", function (evt) {
         evt.target.classList.toggle("card__like-button_state_active");
       });
-    this._element
-      .querySelector(".card__delete-button")
-      .addEventListener("click", this._deleteCard);
     picture.addEventListener("click", (e) => this._handleCardClick(e, this._cardData));
   }
 
-  createCard() {
+  createCard(canBeDeleted) {
     this._element = this._getTemplate();
     const picture = this._element.querySelector('.card__picture');
 
@@ -45,6 +42,9 @@ class Card {
 
     this._element.querySelector(".card__title").textContent = this._name;
     this._element.querySelector(".card__like-counter").textContent = this._likes.length;
+    if (canBeDeleted){
+      this._element.querySelector(".card__delete-button").style.display = "block";
+    }
 
     this._setEventListeners(picture);
 

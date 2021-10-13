@@ -8,6 +8,7 @@ import PopupWithImage from "../components/PopupWithImage";
 import FormValidator from "../components/FormValidator";
 import Api from "../components/Api";
 import Popup from "../components/Popup";
+import PopupDeleteCard from "../components/PopupDeleteCard";
 
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
@@ -17,8 +18,8 @@ const jobSelector = "profile__job";
 const avatarSelector = "profile__avatar";
 const cardTemplate = "#card-template";
 
-let initialCards = [];
 let defaultCardList = () => {};
+let userInfo = {};
 
 const addValidator = new FormValidator(document.querySelector(".popup__form_type_add"),settings);
 addValidator.enableValidation();
@@ -39,23 +40,25 @@ const profileInfo = new UserInfo(nameSelector, jobSelector, avatarSelector);
 api.getInitialUserInfo(
   {
     renderer: (result) =>
-      profileInfo.setUserInfo({name: result.name, job: result.about, avatar: result.avatar})
+      {
+        userInfo = result;
+        profileInfo.setUserInfo({name: result.name, job: result.about, avatar: result.avatar});
+      }
   }
 )
 
 api.getInitialCards()
-.then((result) => {initialCards = result;})
-.then(() => {
+.then((initialCards) => {
   defaultCardList = new Section(
     {
-      items: initialCards,
+      items: initialCards.reverse(),
       renderer: (item) => {
         const cardElement = new Card (
             item,
             cardTemplate,
             handleCardClick,
             handleDeleteClick
-          ).createCard();
+          ).createCard(item.owner._id === userInfo._id);
         defaultCardList.addItem(cardElement);
       }
     },
@@ -73,8 +76,19 @@ function handleCardClick(e, cardData) {
   popupWithImage.setEventListeners();
 }
 
-function handleDeleteClick(e) {
-  const popupDeleteCard = new Popup('popup_type_delete');
+function handleDeleteClick(e, cardData, cardInstance) {
+  e.preventDefault();
+  const popupDeleteCard = new PopupDeleteCard(
+    {
+      cardData,
+      handleFormSubmit: (id) => {
+        popupDeleteCard.close();
+        api.deleteCard(id)
+        .then(() => cardInstance._deleteCard());
+      }
+    },
+    'popup_type_delete'
+  );
   popupDeleteCard.open();
   popupDeleteCard.setEventListeners();
 }
@@ -98,15 +112,21 @@ popupEdit.setEventListeners();
 
 const popupAdd = new PopupWithForm(
   {
-    handleFormSubmit: (cardData) => {
-      const cardElement = new Card (
+    handleFormSubmit: (inputsData) => {
+      api.addNewCard({cardData: inputsData})
+      .then((cardData) => {
+        return new Card (
           cardData,
           cardTemplate,
           handleCardClick,
           handleDeleteClick
-        ).createCard();
-      defaultCardList.addItem(cardElement);
-      popupAdd.close();
+        ).createCard(cardData.owner._id === userInfo._id);
+      }).then((cardElement) => {
+        defaultCardList.addItem(cardElement);
+        popupAdd.close();
+      })
+
+
     }
   },
   'popup_type_add');
