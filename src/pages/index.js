@@ -98,7 +98,6 @@ function handleDeleteClick() {
 function handleLikeClick(method) {
   api.changeLikes(this._cardData._id, method)
   .then((result) => {
-    console.log(result.likes.length);
     this._element.querySelector(".card__like-counter").textContent = result.likes.length;
   });
 }
@@ -107,11 +106,13 @@ function handleLikeClick(method) {
 const popupEdit = new PopupWithForm(
   {
     handleFormSubmit: (inputsData) => {
+      popupEdit._form.submit.textContent = "Saving...";
       api.updateProfile({
         userData: inputsData,
         renderer: (result) => {
           profileInfo.setUserInfo({name: result.name, job: result.about, avatar: result.avatar});
           popupEdit.close();
+          popupEdit._form.submit.textContent = "Save";
         }
       })
 
@@ -123,6 +124,7 @@ popupEdit.setEventListeners();
 const popupAdd = new PopupWithForm(
   {
     handleFormSubmit: (inputsData) => {
+      popupAdd._form.submit.textContent = "Saving...";
       api.addNewCard({cardData: inputsData})
       .then((cardData) => {
         return new Card (
@@ -135,6 +137,7 @@ const popupAdd = new PopupWithForm(
       }).then((cardElement) => {
         defaultCardList.addItem(cardElement);
         popupAdd.close();
+        popupAdd._form.submit.textContent = "Create";
       })
     }
   },
@@ -144,10 +147,12 @@ popupAdd.setEventListeners();
 const popupUpdateAvatar = new PopupWithForm(
   {
     handleFormSubmit: (inputsData) => {
+      popupUpdateAvatar._form.submit.textContent = "Saving...";
       api.updateAvatar(inputsData.avatar)
       .then((result) => {
         popupUpdateAvatar.close();
         profileInfo.setUserInfo({avatar: result.avatar});
+        popupUpdateAvatar._form.submit.textContent = "Save";
       });
     }
   },
