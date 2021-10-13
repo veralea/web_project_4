@@ -88,4 +88,23 @@ export default class Api {
     .catch((err) => console.log(err));
   }
 
+  changeLikes(cardId, method) {
+    // console.log(cardId, method);
+    return fetch (`${this._baseUrl}/cards/likes/${cardId}`,{
+      method: method,
+      headers: this._headers
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    // .then((result) => {
+    //   console.log(result);
+    //   return result;
+    // })
+    .catch((err) => console.log(err));
+  }
+
 }
