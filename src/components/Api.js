@@ -89,7 +89,6 @@ export default class Api {
   }
 
   changeLikes(cardId, method) {
-    // console.log(cardId, method);
     return fetch (`${this._baseUrl}/cards/likes/${cardId}`,{
       method: method,
       headers: this._headers
@@ -100,10 +99,23 @@ export default class Api {
       }
       return Promise.reject(`Error: ${res.status}`);
     })
-    // .then((result) => {
-    //   console.log(result);
-    //   return result;
-    // })
+    .catch((err) => console.log(err));
+  }
+
+  updateAvatar(avatar) {
+    return fetch (`${this._baseUrl}/users/me/avatar`,{
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
     .catch((err) => console.log(err));
   }
 

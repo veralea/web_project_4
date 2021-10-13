@@ -7,12 +7,13 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage";
 import FormValidator from "../components/FormValidator";
 import Api from "../components/Api";
-import Popup from "../components/Popup";
 import PopupDeleteCard from "../components/PopupDeleteCard";
+import Popup from "../components/Popup";
 
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.profile__edit-button');
 const addButton = page.querySelector('.profile__add-button');
+const updateAvatarButton = page.querySelector('.profile__avatar-cover');
 const nameSelector = "profile__name";
 const jobSelector = "profile__job";
 const avatarSelector = "profile__avatar";
@@ -25,6 +26,8 @@ const addValidator = new FormValidator(document.querySelector(".popup__form_type
 addValidator.enableValidation();
 const editValidator = new FormValidator(document.querySelector(".popup__form_type_edit"),settings);
 editValidator.enableValidation();
+const updateAvatarValidator = new FormValidator(document.querySelector(".popup__form_type_update-avatar"),settings);
+updateAvatarValidator.enableValidation();
 
 
 const api = new Api({
@@ -97,7 +100,6 @@ function handleLikeClick(method) {
   .then((result) => {
     console.log(result.likes.length);
     this._element.querySelector(".card__like-counter").textContent = result.likes.length;
-    // return result;
   });
 }
 
@@ -134,12 +136,23 @@ const popupAdd = new PopupWithForm(
         defaultCardList.addItem(cardElement);
         popupAdd.close();
       })
-
-
     }
   },
   'popup_type_add');
 popupAdd.setEventListeners();
+
+const popupUpdateAvatar = new PopupWithForm(
+  {
+    handleFormSubmit: (inputsData) => {
+      api.updateAvatar(inputsData.avatar)
+      .then((result) => {
+        popupUpdateAvatar.close();
+        profileInfo.setUserInfo({avatar: result.avatar});
+      });
+    }
+  },
+  'popup_type_update-avatar');
+popupUpdateAvatar.setEventListeners();
 
 
 editButton.addEventListener('click', () => {
@@ -152,6 +165,8 @@ addButton.addEventListener('click', () => {
   popupAdd.open({name: "", link: ""});
 });
 
-
+updateAvatarButton.addEventListener('click', () => {
+  popupUpdateAvatar.open({avatar: ""});
+});
 
 
