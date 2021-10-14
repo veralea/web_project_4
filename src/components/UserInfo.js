@@ -13,16 +13,15 @@ export default class UserInfo {
     return userData;
   }
 
-  setUserInfo({name = null, job = null, avatar = null}) {
-    if(name) {
-      this._profileName.textContent = name;
-    }
-    if(job) {
-      this._profileJob.textContent = job;
-    }
-    if(avatar) {
-      this._profileAvatar.style.backgroundImage = `url(${avatar})`;
-    }
+  setUserInfo(data) {
+      this._profileName.textContent = data.name;
+      this._profileJob.textContent = data.about;
+      this._profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+      this.id = data._id;
+  }
+
+  setAvatar(avatar) {
+    this._profileAvatar.style.backgroundImage = `url(${avatar})`;
   }
 
 }

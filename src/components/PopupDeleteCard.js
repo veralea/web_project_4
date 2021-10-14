@@ -1,10 +1,8 @@
 import Popup from "./Popup";
 
 export default class PopupDeleteCard extends Popup {
-  constructor ({ cardData, handleFormSubmit }, popupSelector) {
+  constructor (popupSelector) {
     super(popupSelector);
-    this._id = cardData._id;
-    this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector("form");
   }
 
@@ -15,6 +13,4 @@ export default class PopupDeleteCard extends Popup {
     });
     super.setEventListeners();
   }
-
-
 }
